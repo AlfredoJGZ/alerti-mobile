@@ -1,54 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faBars, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {View, Button, StyleSheet } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import Navbar from './components/Navbar';
 
-function Navbar() {
-  return(
-    <View style={styles.navbar}>
-      <FontAwesomeIcon icon={ faBars } size={25} color={'white'} />
-      <Image 
-        style={styles.navbarImg}
-        source={require('./assets/alerti-logo.png')}  
-      />
-      <FontAwesomeIcon icon={ faSignOutAlt } size={25} color={'white'} />
-    </View>
-  )
-};
-
-export default function App() {
+function HomeScreen({ navigation }) {
   return (
-    <Navbar />
+    <View>
+      <Navbar />
+      <Button
+        onPress={() => navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  navbar: {
-    backgroundColor: '#1E272E',
-    marginTop: 25, 
-    height: 50,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
-  },
-  navbarImg: {
-    width: 132,
-    height: 28
-  }
-});
+function NotificationsScreen({ navigation }) {
+  return (
+    <View>
+      <Navbar />
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
+
+
