@@ -1,9 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { enableScreens } from 'react-native-screens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import DashboardsScreen from './components/DashboardsScreen';
 import OpcionesScreen from './components/OpcionesScreen';
@@ -18,14 +15,12 @@ import AmbientesScreen from './components/AmbientesScreen';
 import LoginScreen from './components/LoginScreen'; 
 
 const Drawer = createDrawerNavigator();
-enableScreens();
-const Stack = createNativeStackNavigator();
-
-
 
 export default function App() {
   const logged = false; 
   return (
+    <>
+    
     <NavigationContainer>
       {logged ? (
         <Drawer.Navigator initialRouteName='Dashboards' drawerStyle={styles.drawer} drawerContentOptions={drawerItemsStyles}>
@@ -40,19 +35,17 @@ export default function App() {
           <Drawer.Screen name='CMR México' component={CmrMexicoScreen} />
           <Drawer.Screen name='Ambientes Previos' component={AmbientesScreen} />     
         </Drawer.Navigator>
-      ):(
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </Stack.Navigator>
+      ):( 
+        <LoginScreen />
       )} 
     </NavigationContainer>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   drawer:{
-  backgroundColor: '#1E272E',
-  paddingTop: 75
+    backgroundColor: '#1E272E',
   }
 });
 

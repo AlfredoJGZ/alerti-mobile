@@ -1,4 +1,6 @@
 import React from 'react'; 
+import { StatusBar } from 'expo-status-bar';
+import Constants from "expo-constants";
 import { StyleSheet, View, Image, TouchableHighlight } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -9,6 +11,8 @@ function Navbar() {
   const navigation = useNavigation();
   
   return(
+    <>
+      <StatusBar backgroundColor="blue" />
       <View style={styles.navbar}>
         
         <TouchableHighlight>
@@ -29,6 +33,7 @@ function Navbar() {
         </TouchableHighlight>
   
       </View>
+    </>
   )
     
 };
@@ -41,9 +46,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 25,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    marginTop: Constants.statusBarHeight,
   },
   navbarImg:{
     width: 132,
